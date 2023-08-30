@@ -1,0 +1,49 @@
+Learning takeaways: 
+
+- After doing research into other algorithms, I noted that Dijkstras algorithm may not be the most optimal solution;
+as the knights travail problem does not have a "weight" aspect to it.
+
+- Using wikipedia + GPT, the time complexity of the Dijkstras algorithm in a 2d array (matrix) is O (n^2). A priority queue would be O (edges + vertex log vertex).
+Because the problem is so small, this is probably negligible -- practically speaking, it did not seem reasonable to figure out how to assign weights to each distance and therefore I looked...
+for another solution.
+
+- I ended up using a 2d matrix to visualize the board and used a BFS algorithm (with a queue), to tackle this problem
+
+Set Up:
+
+Define a Knight class with:
+    - its' own position
+    - the possible moves it could make
+
+Define a Chessboard class with:
+    - height = 8;
+    - width = 8;
+    - a gameboard that is generated based on height x width. 
+    - display function to show the gameboard
+    - a knight object that belong to the chess board
+    - a function that checks and validates legal moves of the knight object
+    - a shortest path function
+
+- The shortest path function had two parameters: a start location for the knight and a target location
+
+To implement this function I checked for edge cases such as if the start location was equivalent to the end location.
+
+- Next was to :
+    - generate a queue of type array
+    - generate a parents of type object, which would contain the following values: the (legal move that was going to be made and then queued), the current step iteration, the previous step(s) made
+
+The logic of the BFS was to push the initial step (or the starting point) into the queue. A while loop ensured that the algorithm continued to function so as long as the loop was not empty.
+
+Within the while loop, I dequeued the first move and utilized the check legal moves function to return the move set of all possible legal moves of the knight at its' current location. 
+I then used a for loop to push all those parent objects onto the queue, whereby the properties of the object were (as seen above in the parents object type.)
+
+The logic of the for loop allowed me to provide two conditions, where I countinued to queue the children (possible moves) of the move that was currently being evaluated. 
+
+Essentially, the breadth/generation of each move was checked first (so all moves that are considered the nth step). Once the 'last' nth step was evaluated NOT to equal the desired node target
+I could begin to evaluate the queued steps that were the (n + 1)th step. Therefore, I would continue to evaluate at each generation using a variable steps to determine what step count we were on.
+
+Once the target node was found, the steps assigned to that generation would determine how many steps from start to target. The path parameter in our parents object allowed us to "remember"
+the path that was taken from start to finish, by spreading the previous path into the parents object structure.
+
+
+
